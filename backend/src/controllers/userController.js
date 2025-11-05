@@ -8,7 +8,7 @@ const registerUser = async (req, res) => {
 
     const userExists = await User.findOne({ email });
 
-    if (!userExists) {
+    if (userExists) {
       return res.status(400).json({
         success: false,
         message: "User already exists with this email",
@@ -21,6 +21,9 @@ const registerUser = async (req, res) => {
       email,
       password,
     });
+
+    // Generate token
+    const token = generateToken(user._id);
 
     // send response
     res.status(201).json({
@@ -94,4 +97,22 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser };
+const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password"); // This is used to exclude selection of password (select(-password))
+
+    res.status(200).json({
+      success: true,
+      message: "Profile retrieved successfully",
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+export { registerUser, loginUser, getUserProfile };

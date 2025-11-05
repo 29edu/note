@@ -23,7 +23,12 @@
     If valid, allow access
     If invalid, block access
 
-11. 
+11. Current situation: Auth middleware created but not used yet
+    What we'll do: Create protected route to test it
+    Test route: Get current user profile (only if logged in)
+    Next step: Add profile route
+
+12. 
 
 # Note
 1. In mongoose, while using hashing, we can't use arrow function , because this donot work with mongoose. so we use normal function 
