@@ -37,6 +37,7 @@ const registerUser = async (req, res) => {
         createdAt: user.createdAt,
       },
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -62,7 +63,7 @@ const loginUser = async (req, res) => {
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "Invalid email or password",
+        message: "Invalid email or password. The email is not found in database",
       });
     }
 
@@ -88,6 +89,7 @@ const loginUser = async (req, res) => {
         token: token,
       },
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -98,6 +100,7 @@ const loginUser = async (req, res) => {
 };
 
 const getUserProfile = async (req, res) => {
+  
   try {
     const user = await User.findById(req.user.id).select("-password"); // This is used to exclude selection of password (select(-password))
 
@@ -106,6 +109,7 @@ const getUserProfile = async (req, res) => {
       message: "Profile retrieved successfully",
       data: user,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,

@@ -28,7 +28,16 @@
     Test route: Get current user profile (only if logged in)
     Next step: Add profile route
 
-12. 
+12. create Task Controller for handling newTask
+13. We need to setup route for the new controller taskController.js
+
+14. Current situation: Can create notes but can't view them
+    What we need: Get all notes for logged-in user
+    Next step: Add getNotes controller
+
+15. Adding features of GetAllTask, GetTaskById
+
+16. 
 
 # Note
 1. In mongoose, while using hashing, we can't use arrow function , because this donot work with mongoose. so we use normal function 
@@ -44,3 +53,7 @@ Check if user exists
 Compare password
 If correct, generate token
 Send token in response
+
+# HTTP Server
+403 :- Unauthorized Access
+
