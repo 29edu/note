@@ -19,7 +19,7 @@ app.use(cors());
 import userRoutes from "./routes/userRoutes.js";
 import taskRoutes from "./routes/TaskRoutes.js";
 app.use("/api/users", userRoutes);
-app.use("/api/task", taskRoutes);
+app.use("/api/tasks", taskRoutes);
 
 app.get("/", (req, res) => {
   res.json({
