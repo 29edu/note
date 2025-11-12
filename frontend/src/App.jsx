@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './index.css'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
 
 function App() {
 
+  // if the user is not logged in , user becomes null
   const { user, loading } = useAuth();
 
   // Show loading while checking auth
@@ -22,37 +24,19 @@ function App() {
     <Router>
       <Routes>
         {/* Public routes */}
+        {/* If the user is already logged in redirect to the dashboard otherwise redirect to login*/}
         <Route  path='/login' element={user ? <Navigate to='/dashboard' /> : <Login /> }
         />
+
         <Route path='/register' element={user ? <Navigate to="/dashboard" />: <Register /> }
         />
 
-        {/* Temporary dashboard route */}
-        <Route
-          path='/dashboard'
-            element={
-              user ? (
-                <div className='min-h-screen bg-gray-100 p-8'>
-                  <h1 className='text-3xl font-bold'>
-                    Dashboard
-                  </h1>
-                  <p className='mt-2'>Welcome, {user.name}</p>
-                    <button onClick={ () => {
-                        localStorage.clear();
-                        window.location.reload();
-                      }}
-                    className='mt-4 bg-red-600 text-white px-4 py-2 rounded'>
-                      Logout
-                  </button>
-                </div>
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
+        {/*Takes to the dashboard */}
+        {/* If the user is logged in then it will return some value , and that means the user is logged in, and will take to the dashboard otherwise login*/}
+        <Route path='/dashboard' element={user  ? <Dashboard/>: <Navigate to="/login" /> } />
 
-          { /* DEfault redirect */}
-          <Route path='/' element={<Navigate to={user ? "/dashboard" : "/login"} />} />
+        { /* Default redirect */}
+        <Route path='/' element={<Navigate to={user ? "/dashboard" : "/login"} />} />
 
       </Routes>
     </Router>
@@ -60,3 +44,7 @@ function App() {
 }
 
 export default App;
+
+
+// Router creates an environment that allows navigation and route matching to work
+// Routes is like a switch - it looks the current url and renders the first <Route> that matches

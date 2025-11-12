@@ -2,10 +2,10 @@ import Task from "../models/Task.models.js";
 
 const createTask = async (req, res) => {
   try {
-    const { task, description, status, startingTime, deadline, priority } =
+    const { taskName, description, status, startingTime, deadline, priority } =
       req.body;
 
-    if (!task) {
+    if (!taskName) {
       return res.status(400).json({
         success: false,
         message: "Please provide a Task Name",
@@ -20,7 +20,7 @@ const createTask = async (req, res) => {
     }
 
     const newTask = await Task.create({
-      task,
+      taskName,
       description,
       status,
       startingTime,
@@ -51,7 +51,7 @@ const getTasks = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Notes retrieved Successfully",
+      message: "Tasks retrieved Successfully",
       count: tasks.length,
       data: tasks,
     });
@@ -110,26 +110,19 @@ const updateTask = async (req, res) => {
     // find Note
     let taskToUpdate = await Task.findById(req.params.id);
 
-    const { task, description, status, startingTime, deadline, priority } =
+    if (!taskToUpdate) {
+      return res.status(404).json({
+        success: false,
+        message: "Task not found",
+      });
+    }
+
+    const { taskName, description, status, startingTime, deadline, priority } =
       req.body;
-
-    if (!task) {
-      return res.status(404).json({
-        success: false,
-        message: "Please Enter the Task Name",
-      });
-    }
-
-    if (!priority) {
-      return res.status(404).json({
-        success: false,
-        message: "Please Enter the priority of the task",
-      });
-    }
 
     // Checking Authorization
     if (taskToUpdate.user.toString() !== req.user.id) {
-      return status(403).json({
+      return res.status(403).json({
         success: false,
         message: "Not authorized to update this note",
       });
@@ -138,10 +131,10 @@ const updateTask = async (req, res) => {
     // Update note
     // Syntax-: Note.findByIdAndUpdate(id, updateData, options)
 
-    taskToUpdate = await Task.findById(
+    taskToUpdate = await Task.findByIdAndUpdate(
       req.params.id,
       {
-        task,
+        taskName,
         description,
         status,
         startingTime,
@@ -171,6 +164,11 @@ const updateTask = async (req, res) => {
         message: "Task not found",
       });
     }
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
   }
 };
 

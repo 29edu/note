@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema(
   {
-    task: {
+    taskName: {
       type: String,
       required: [true, "Please add the Task Name"],
       trim: true,
@@ -17,8 +17,8 @@ const taskSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["Pending", "In-Progress", "Completed"],
-      default: "Pending",
+      enum: ["pending", "in-progress", "completed"],
+      default: "pending",
     },
 
     startingTime: {
@@ -31,7 +31,8 @@ const taskSchema = new mongoose.Schema(
 
     priority: {
       type: String,
-      enum: ["low", "Medium", "High"],
+      enum: ["low", "medium", "high"],
+      required: [true, "Please add the Priority"],
     },
 
     user: {

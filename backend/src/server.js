@@ -18,8 +18,10 @@ app.use(cors());
 // Import routes
 import userRoutes from "./routes/userRoutes.js";
 import taskRoutes from "./routes/TaskRoutes.js";
+import noteRoutes from "./routes/NoteRoutes.js";
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use("/api/notes", noteRoutes);
 
 app.get("/", (req, res) => {
   res.json({
