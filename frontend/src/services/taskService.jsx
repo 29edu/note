@@ -61,7 +61,7 @@ export const updateTask = async (id, taskData) => {
     } catch (error) {
         return {
             success: false,
-            message: error.message?.data?.message || 'FAiled to updated task',
+            message: error.response?.data?.message || 'FAiled to updated task',
         };
     }
 };

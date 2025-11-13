@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 import { createTask } from '../services/taskService'
 
 function CreateTask() {
-    const [task, setTask] = useState('');
+    const [taskName, setTask] = useState('');
     const [description, setDesciption] = useState('');
     const [status, setStatus] = useState('Pending');
     const [startingTime, setStartingTime] = useState('');
@@ -20,7 +20,7 @@ function CreateTask() {
         setError("");
 
         // Validation
-        if(!task.trim()) {
+        if(!taskName.trim()) {
             setError('Please Enter the Task Name');
             return;
         }
@@ -33,7 +33,7 @@ function CreateTask() {
         setLoading(true);
 
         const taskData = await createTask({
-            task,
+            taskName,
             description,
             status,
             startingTime: startingTime || null,
