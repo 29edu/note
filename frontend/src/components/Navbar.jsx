@@ -17,12 +17,16 @@ function Navbar() {
                         <Link to="/dashboard" className='flex-shrink-0 flex items-center'>
                             <h1 className='text-2xl font-bold text-blue-600'>Task App</h1>
                         </Link>
-                        <div className='hidden md:ml-6 md:flex md:space-x-6'>
+                        <div className='hidden md:ml-6 md:flex md:space-x-8'>
                             <Link to='/dashboard' className='inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600'>
+                                My Note
+                            </Link>
+                            <Link to='/tasks' className='inlin-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-600'>
                                 My Task
                             </Link>
-                            <Link to='/create' className='inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-blue-600'>
-                                Create Task
+                            <Link to="/create"
+                                className = "inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600">
+                                    Create Note
                             </Link>
                         </div>
                     </div>

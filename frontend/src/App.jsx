@@ -1,4 +1,5 @@
 import "./App.css";
+import TasksDashboard from "./pages/tasks/TasksDashboard";
 import { useAuth } from "./context/AuthContext";
 import {
   BrowserRouter as Router,
@@ -11,7 +12,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import NoteNavbar from "./components/Navbar/NoteNavbar";
-import CreateNote from "./pages/CreateNote";
+import CreateNote from "./pages/notes/CreateNote";
+import CreateTask from "./pages/tasks/CreateTask";
+import EditTask from "./pages/tasks/EditTask";
 
 function App() {
   // if the user is not logged in , user becomes null
@@ -48,15 +51,30 @@ function App() {
           element={user ? <Dashboard /> : <Navigate to="/login" />}
         />
 
+        <Route
+          path="/create"
+          element={user ? <CreateNote /> : <Navigate to="/login" />}
+        />
+
+        <Route
+          path="/tasks"
+          element={user ? <TasksDashboard /> : <Navigate to="/login" />}
+        />
+
+        <Route
+          path="/tasks/create"
+          element={user ? <CreateTask /> : <Navigate to="/login" />}
+        />
+
+        <Route
+          path="/tasks/edit:id"
+          element={user ? <EditTask /> : <Navigate to="/login" />}
+        />
+
         {/* Default redirect */}
         <Route
           path="/"
           element={<Navigate to={user ? "/dashboard" : "/login"} />}
-        />
-
-        <Route
-          path="/create"
-          element={user ? <CreateNote /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
